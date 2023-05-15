@@ -2,9 +2,9 @@ const express = require("express");
 const fileUpload = require("express-fileupload");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const authRouter = require("./src/routers/authRouter");
-const profileRouter = require("./src/routers/profileRouter");
-const todosRouter = require("./src/routers/todosRouter");
+const authRouter = require("./src/routers/authRouter.js");
+const profileRouter = require("./src/routers/profileRouter.js");
+const todosRouter = require("./src/routers/todosRouter.js");
 const PORT = 3001;
 const app = express();
 app.use(

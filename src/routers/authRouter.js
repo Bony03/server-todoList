@@ -1,7 +1,7 @@
 const Router = require("express");
 const router = new Router();
-const controller = require("../controllers/authController");
-const checkTokenMiddlewere = require("../middlewere/checkTokenMiddlewere");
+const controller = require("../controllers/authController.js");
+const checkTokenMiddlewere = require("../middlewere/checkTokenMiddlewere.js");
 
 router.post("/registration", controller.registration);
 router.post("/login", controller.login);
