@@ -8,6 +8,8 @@ const User = new Schema({
   regDate: { type: Number, required: true },
   todos: { type: ObjectId, ref: "Todos" },
   photo: { type: ObjectId, ref: "File" },
+  activateID: { type: String, required: true },
+  isActivated: { type: Boolean, default: false },
 });
 
 module.exports = model("User", User);

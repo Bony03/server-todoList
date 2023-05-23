@@ -6,7 +6,6 @@ class profileController {
   async updateData(req, res) {
     try {
       const { name, surname } = req.body;
-      console.log(name, surname);
       await User.findOneAndUpdate(
         { _id: req.body.user._id },
         { $set: { name: name, surname: surname } }

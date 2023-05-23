@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const fileUpload = require("express-fileupload");
 const mongoose = require("mongoose");
@@ -21,9 +22,7 @@ app.use("/todos", todosRouter);
 
 const start = async () => {
   try {
-    await mongoose.connect(
-      "mongodb+srv://bvorush:LHx2WZbsq5eR3pte@todoapp.cxlnfki.mongodb.net/?retryWrites=true&w=majority"
-    );
+    await mongoose.connect(process.env.DB_URL);
     app.listen(PORT, () => console.log(`listening on port ${PORT}`));
   } catch (error) {
     console.log(error);
