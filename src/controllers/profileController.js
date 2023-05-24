@@ -33,6 +33,9 @@ class profileController {
       const id = req.body.user._id;
       const type = uploadFile.name.split(".").pop();
       const newFilename = id + "." + type;
+      if (!fs.existsSync(`./clientFiles/${id}`)) {
+        fs.mkdirSync(`./clientFiles/${id}`);
+      }
       const path = `./clientFiles/${id}/${newFilename}`;
       uploadFile.mv(path, function (err) {
         if (err) {
@@ -71,11 +74,19 @@ class profileController {
     try {
       const id = req.body.user._id;
       const photo = await File.findOne({ user_id: id });
+      if (!fs.existsSync(photo.path)) {
+        if (!fs.existsSync(photo.path.split("/").slice(0, 3).join("/"))) {
+          fs.mkdirSync(photo.path.split("/").slice(0, 3).join("/"));
+        }
+        return res.status(404).json({
+          message: "Photo doesn't exist! Please upload it once again.",
+        });
+      }
       const readStream = fs.createReadStream(photo.path);
       readStream.pipe(res);
     } catch (error) {
       console.log(error);
-      res.status(400).json({ message: "Loading failed" });
+      return res.status(400).json({ message: "Loading failed" });
     }
   }
 }

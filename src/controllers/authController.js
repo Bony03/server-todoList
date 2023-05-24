@@ -1,5 +1,4 @@
 const User = require("../models/User");
-const jwt = require("jsonwebtoken");
 const fs = require("fs");
 const bcrypt = require("bcrypt");
 const generateToken = require("../../helpers");
@@ -112,12 +111,10 @@ class authController {
   }
   async requestResetPassword(req, res) {
     try {
-      console.log(req.body);
       const email = req.body.email;
       const user = await User.findOne({ email });
       if (user) {
-        const token = generateToken(user.id, 60000);
-        console.log(token);
+        const token = generateToken(user.id, 6000);
         mailService.sendResetMessage(
           email,
           `${process.env.SITE_URL}/reset-password/${token}`
@@ -138,7 +135,6 @@ class authController {
       const hasPassword = bcrypt.hashSync(req.body.password, 10);
       candidate.password = hasPassword;
       await candidate.save();
-
       return res
         .status(200)
         .json({ message: "Password successfully changed", token });

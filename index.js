@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const fileUpload = require("express-fileupload");
 const mongoose = require("mongoose");
+const fs = require("fs");
 const cors = require("cors");
 const authRouter = require("./src/routers/authRouter.js");
 const profileRouter = require("./src/routers/profileRouter.js");
@@ -22,6 +23,9 @@ app.use("/todos", todosRouter);
 
 const start = async () => {
   try {
+    if (!fs.existsSync("./clientFiles")) {
+      fs.mkdirSync("./clientFiles");
+    }
     await mongoose.connect(process.env.DB_URL);
     app.listen(PORT, () => console.log(`listening on port ${PORT}`));
   } catch (error) {
